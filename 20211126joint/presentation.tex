@@ -1,0 +1,207 @@
+\documentclass{beamer}
+\usepackage{boondox-calo} % lowercase calligraphic letters
+
+\beamertemplatenavigationsymbolsempty
+\usetheme{Warsaw}
+
+\newcommand
+{\E} % [e]xpected value
+{\mathbb{E}}
+
+\newcommand
+{\channelState}
+{s}
+
+\newcommand
+{\indicatorFull}
+{^{\pi, \channelState}_{u, m}}
+
+\newcommand
+{\discountRatio}
+{\frac{\rvUrllcLoadSlot}{\vaResourceSlot}}
+
+\newcommand
+{\discountFunc}
+{h\left[ \discountRatio \right]}
+
+% [c]on[s]tants
+\newcommand
+{\csChannelStatePeakCapacity}
+{\mathfrak{c}^{\channelState}_{u}}
+
+\newcommand
+{\csMinislot}
+{\mathfrak{m}}
+
+\newcommand
+{\csFB} % [F]requency [B]andwidth
+{\mathfrak{f}}
+
+\newcommand
+{\csSlotTime}
+{\mathfrak{t}}
+
+\newcommand
+{\csMinislotTime}
+{\mathfrak{t}^{\prime}}
+
+% [va]riables
+\newcommand
+{\vaResourceMinislot}
+{\phi\indicatorFull}
+
+\newcommand
+{\vaResourceMF} % [M]inislot [F]requency
+{\phi_{f, m}}
+
+\newcommand
+{\vaResourceSlot}
+{\phi^{\pi, \channelState}_{u}}
+
+% [r]andom [v]ariables
+\newcommand
+{\rvChannelStateCapacity}
+{C^{\pi, \channelState}_{u}}
+
+\newcommand
+{\rvUrllcLoadMF} % [M]inislot [F]requency
+{L^{\pi}_{f, m}}
+
+\newcommand
+{\rvUrllcLoadMinislot}
+{L\indicatorFull}
+
+\newcommand
+{\rvUrllcLoadSlot}
+{L^{\pi, \channelState}_{u}}
+
+\title{Report: Joint Scheduling of URLCC and eMBB Traffic in 5G Wireless Networks}
+\author{Tran Phong Binh}
+\institute{High-Speed Communication and Computing Laboratory, Department of Computer Science, National Tsing Hua University}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Table of Contents}
+  \tableofcontents
+\end{frame}
+
+\section{hello}
+\begin{frame}
+  Without URLLC superposition/puncturing,
+  \begin{equation*}
+    \rvChannelStateCapacity = \csChannelStatePeakCapacity \vaResourceSlot
+  \end{equation*}
+  With URLLC superposition/puncturing,
+  \begin{align*}
+    \rvChannelStateCapacity & = \csChannelStatePeakCapacity \vaResourceSlot - \csChannelStatePeakCapacity \vaResourceSlot \discountFunc \\
+    & = \csChannelStatePeakCapacity \vaResourceSlot \left( 1 - \discountFunc \right)
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  With linear URLLC superposition/puncturing,
+  \begin{equation*}
+    \discountFunc = \discountRatio
+  \end{equation*}
+  That is,
+  \begin{align*}
+    \rvChannelStateCapacity & = \csChannelStatePeakCapacity \vaResourceSlot \left( 1 - \discountRatio \right)\\
+    & = \csChannelStatePeakCapacity \left( \vaResourceSlot - \rvUrllcLoadSlot \right)
+  \end{align*}
+  Hence,
+  \begin{equation}
+    \label{eq:model}
+    \E \rvChannelStateCapacity = \csChannelStatePeakCapacity \left( \vaResourceSlot - \E \rvUrllcLoadSlot \right)
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item We assume linear URLLC superposition/puncturing.
+    \item We place URLLC loads uniformly over frequency bandwidth across minislots.
+    \item I assume $\vaResourceMinislot$ is fixed for a given set of $\left(\channelState, u, m\right)$, for $\E \rvUrllcLoadMinislot$ in equation \ref{eq:exUrllcLoadMinislot} to be a proper constant.
+    \item However, I note that such assumption is incorrect because the model aims to modify $\vaResourceMinislot$ over time.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{My Derivation}
+  \begin{itemize}
+    \item Each minislot has an URLLC demand of $\E D_{m} = \frac{\E D}{\csMinislot}$.
+    \item Each frequency $f$ in a minislot has an URLLC load of $\E \rvUrllcLoadMF$.
+  \end{itemize}
+  \begin{align}
+    \label{eq:exUrllcLoadMF}
+    \int_{0}^{\csFB} \E \rvUrllcLoadMF df & = \E D_{m}\nonumber\\
+    \E \rvUrllcLoadMF \int_{0}^{\csFB} df & = \frac{\E D}{\csMinislot}\nonumber\\
+    \E \rvUrllcLoadMF \csFB               & = \frac{\E D}{\csMinislot}\nonumber\\
+    \E \rvUrllcLoadMF                 & = \frac{\E D}{\csFB \csMinislot}
+  \end{align}
+\end{frame}
+
+\begin{frame}
+  \frametitle{My Derivation}
+  \begin{itemize}
+    \item Each frequency $f$ in a minislot has a resource of $\vaResourceMF$.
+  \end{itemize}
+  \begin{align}
+    \label{eq:vaResourceMF}
+    \int_{0}^{\csFB} \vaResourceMF df & = \frac{1}{\csMinislot}\nonumber\\
+    \vaResourceMF                 & = \frac{1}{\csFB \csMinislot}
+  \end{align}
+  \begin{itemize}
+    \item By equations \ref{eq:exUrllcLoadMF} and \ref{eq:vaResourceMF},
+  \end{itemize}
+  \begin{align*}
+    \frac{\E \rvUrllcLoadMF}{\vaResourceMF} & = \E D\\
+    \E \rvUrllcLoadMF                       & = \vaResourceMF \E D
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{My Derivation}
+  On the other hand,
+  \begin{align*}
+    \csFB \csSlotTime   & = 1\\
+    \csFB \csMinislotTime \csMinislot & = 1\\
+    \csMinislotTime     & = \frac{1}{\csFB \csMinislot}
+  \end{align*}
+  Furthermore,
+  \begin{align*}
+    \csFB\indicatorFull \csMinislotTime & = \vaResourceMinislot\\
+    \csFB\indicatorFull   & = \vaResourceMinislot \csFB \csMinislot
+  \end{align*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{My Derivation}
+  Thence,
+  \begin{align}
+    \label{eq:exUrllcLoadMinislot}
+    \E \rvUrllcLoadMinislot & = \int_{0}^{\csFB\indicatorFull} \E \rvUrllcLoadMF df\nonumber\\
+    & = \int_{0}^{\vaResourceMinislot \csFB \csMinislot} \vaResourceMF \E D df\nonumber\\
+    & = \E D \int_{0}^{\vaResourceMinislot \csFB \csMinislot} \vaResourceMF df\nonumber\\
+    & = \E D \vaResourceMinislot
+  \end{align}
+  Similar derivations for slot give
+  \begin{equation}
+    \label{eq:relation}
+    \E \rvUrllcLoadSlot = \E D \vaResourceSlot
+  \end{equation}
+\end{frame}
+
+\begin{frame}
+  By equations \ref{eq:model} and \ref{eq:relation},
+  \begin{align}
+    \E \rvChannelStateCapacity & = \csChannelStatePeakCapacity \left( \vaResourceSlot - \vaResourceSlot \E D \right)\\
+    & = \csChannelStatePeakCapacity \vaResourceSlot \left( 1 - \E D \right)
+  \end{align}
+\end{frame}
+
+\end{document}
