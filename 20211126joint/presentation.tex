@@ -1,8 +1,11 @@
 \documentclass{beamer}
 \usepackage{boondox-calo} % lowercase calligraphic letters
+\usepackage[backend=biber]{biblatex}
 
 \beamertemplatenavigationsymbolsempty
 \usetheme{Warsaw}
+\addbibresource{reference.bib}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 \newcommand
 {\E} % [e]xpected value
@@ -95,8 +98,14 @@
   \tableofcontents
 \end{frame}
 
-\section{hello}
+\section{Linear Model}
 \begin{frame}
+  \frametitle{Linear Model}
+  This presentation describes the core idea of \cite{linear}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{System Model}
   Without URLLC superposition/puncturing,
   \begin{equation*}
     \rvChannelStateCapacity = \csChannelStatePeakCapacity \vaResourceSlot
@@ -109,6 +118,7 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{System Model}
   With linear URLLC superposition/puncturing,
   \begin{equation*}
     \discountFunc = \discountRatio
@@ -126,6 +136,7 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{System Model}
   \begin{itemize}
     \item We assume linear URLLC superposition/puncturing.
     \item We place URLLC loads uniformly over frequency bandwidth across minislots.
@@ -201,11 +212,19 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Conclusion}
   By equations \ref{eq:model} and \ref{eq:relation},
   \begin{align}
+    \label{eq:exChannelStateCapacity}
     \E \rvChannelStateCapacity & = \csChannelStatePeakCapacity \left( \vaResourceSlot - \vaResourceSlot \E D \right)\nonumber\\
     & = \csChannelStatePeakCapacity \vaResourceSlot \left( 1 - \E D \right)
   \end{align}
+  Equation \ref{eq:exChannelStateCapacity} shows that URLLC superposition/puncturing linear model has fixed channel capacity; that is, URLLC scheduling policy can be chosen to be uniform random replacement, and we only have to optimize eMBB scheduling policy.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Reference}
+    \printbibliography[heading=none]
 \end{frame}
 
 \end{document}
