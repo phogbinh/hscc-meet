@@ -58,6 +58,10 @@
 {\vaResourceSlot}
 {\phi^{\pi, \channelState}_{u}}
 
+\newcommand
+{\vaFB} % [F]requency [B]andwidth
+{\zeta\indicatorFull}
+
 % [r]andom [v]ariables
 \newcommand
 {\rvChannelStateCapacity}
@@ -174,8 +178,8 @@
   \end{align*}
   Furthermore,
   \begin{align*}
-    \csFB\indicatorFull \csMinislotTime & = \vaResourceMinislot\\
-    \csFB\indicatorFull   & = \vaResourceMinislot \csFB \csMinislot
+    \vaFB \csMinislotTime & = \vaResourceMinislot\\
+    \vaFB   & = \vaResourceMinislot \csFB \csMinislot
   \end{align*}
 \end{frame}
 
@@ -184,7 +188,7 @@
   Thence,
   \begin{align}
     \label{eq:exUrllcLoadMinislot}
-    \E \rvUrllcLoadMinislot & = \int_{0}^{\csFB\indicatorFull} \E \rvUrllcLoadMF df\nonumber\\
+    \E \rvUrllcLoadMinislot & = \int_{0}^{\vaFB} \E \rvUrllcLoadMF df\nonumber\\
     & = \int_{0}^{\vaResourceMinislot \csFB \csMinislot} \vaResourceMF \E D df\nonumber\\
     & = \E D \int_{0}^{\vaResourceMinislot \csFB \csMinislot} \vaResourceMF df\nonumber\\
     & = \E D \vaResourceMinislot
