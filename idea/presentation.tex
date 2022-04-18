@@ -1,8 +1,11 @@
 \documentclass{beamer}
 \usepackage{boondox-calo} % lowercase calligraphic letters
+\usepackage[backend=biber]{biblatex}
 
 \beamertemplatenavigationsymbolsempty
 \usetheme{Warsaw}
+\addbibresource{reference.bib}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 \newcommand
 {\const}
@@ -63,7 +66,15 @@
 \begin{frame}
   \frametitle{Interference Problem of Multiconnectivity}
   \begin{itemize}
-    \item Solution: W-CDMA (Wideband Code Division Multiple Access)
+    \item Solution 1: Mathematical optimization with optimal analysis (currently researching \cite{dualConnectivityOptimal})
+    \item Solution 2: Approximation algorithm with approximation ratio analysis (currently researching \cite{dualConnectivityApproximate})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interference Problem of Multiconnectivity}
+  \begin{itemize}
+    \item Solution 3: W-CDMA (Wideband Code Division Multiple Access)
     \item Motivation: LEACH (Low-Energy Adaptive Clustering Hierarchy)
     \item Pros and Cons:
       \begin{itemize}
@@ -102,6 +113,11 @@
     \includegraphics[width=\textwidth]{system_framework}
     \caption{System framework}
   \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{References}
+  \printbibliography[heading=none]
 \end{frame}
 
 \end{document}
