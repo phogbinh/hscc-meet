@@ -58,13 +58,26 @@
       \begin{itemize}
         \item (+) Resolves the aforementioned issues
         \item (-) Interference among base stations needs to be addressed
-        \item (-) Requires user equipments to support MIMO (Multiple-Input and Multiple-Output)
+        \item (-) Requires eMBB user equipments to support MIMO (Multiple-Input and Multiple-Output)
       \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Interference Problem of Multiconnectivity}
+  \frametitle{eMBB \& URLLC Interference Problem of Multiconnectivity}
+  \begin{itemize}
+    \item eMBB interference problem: Even without taking URLLC user equipments into account, interference may occur among eMBB user equipments of \emph{different} base stations
+    \item URLLC interference problem:
+      \begin{itemize}
+        \item If for each base station, the same dedicated channel is allocated for URLLC traffic, then interference may occur among URLLC user equipments of \emph{different} base stations
+        \item If for all base stations, mutually exclusive dedicated channels are allocated for URLLC traffic, then interference may occur between URLLC user equipments of one base station and eMBB user equipments of others
+        \item If URLLC puncture system is used on all base stations, then interference may occur between URLLC user equipments of one base station and eMBB/URLLC user equipments of others
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{eMBB \& URLLC Interference Problem of Multiconnectivity}
   \begin{itemize}
     \item Solution 1: Mathematical optimization with optimal analysis (currently researching \cite{dualConnectivityOptimal})
     \item Solution 2: Approximation algorithm with approximation ratio analysis (currently researching \cite{dualConnectivityApproximate})
@@ -72,7 +85,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Interference Problem of Multiconnectivity}
+  \frametitle{eMBB \& URLLC Interference Problem of Multiconnectivity}
   \begin{itemize}
     \item Solution 3: W-CDMA (Wideband Code Division Multiple Access)
     \item Motivation: LEACH (Low-Energy Adaptive Clustering Hierarchy)
@@ -82,7 +95,8 @@
         \item (+) Fits with the often small number of base stations
         \item (+) Simplifies the mathematical model of the system
         \item (-) Introduces redundant bits
-        \item (-) Requires user equipments to support multiple CDMA
+        \item (-) Requires eMBB user equipments to support \emph{multiple} CDMA
+        \item (-) Requires URLLC user equipments to support CDMA
       \end{itemize}
     \item However, the number of redundant bits required is the number of orthogonal basis to assign to each base station i.e. the number of base stations, which is negligible
     \item On the other hand, it is projected that devices are becoming more and more advanced, so expecting user equipments to support multiple CDMA at the same time is plausible
