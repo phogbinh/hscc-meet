@@ -405,7 +405,7 @@
         {}{}
         \addConstraint
           { \sum_{ \embbUser }{ \embbTwo{\embbUser}{\embbTime} } }
-          { \leq 1 }
+          { = 1 }
           { \forall\embbTime }
         \addConstraint
           { \embbTwo{\embbUser}{\embbTime} }
@@ -443,13 +443,15 @@
   \begin{itemize}
     \frametitle{Convex Loss Model (Continued)}
     \item Assume minislot-homogeneous policy:
-      \begin{equation}
-        \urllcFourBug{\urllcUser}{\embbUser}{\embbTime}{\urllcTime} = \frac{ \factorThree{\urllcUser}{\embbUser}{\embbTime} }{ \frac{ 1 }{ \urllcTimeN } } \demandThree{\urllcUser}{\embbTime}{\urllcTime},\quad \forall\embbUser, \forall\embbTime, \forall\urllcTime,
-      \end{equation}
+      \begin{align}
+        \urllcFourBug{\urllcUser}{\embbUser}{\embbTime}{\urllcTime} & = \frac{ \frac{ \factorThree{\urllcUser}{\embbUser}{\embbTime} }{ \urllcTimeN } }{ \frac{ 1 }{ \urllcTimeN } } \demandThree{\urllcUser}{\embbTime}{\urllcTime}\\
+                                                                    & = \factorThree{\urllcUser}{\embbUser}{\embbTime} \demandThree{\urllcUser}{\embbTime}{\urllcTime},\quad \forall\embbUser, \forall\embbTime, \forall\urllcTime,
+      \end{align}
     \item where
-      \begin{equation}
-        \sum_{ \embbUser }{ \factorThree{\urllcUser}{\embbUser}{\embbTime} } = \frac{ 1 }{ \urllcTimeN },\quad \forall\embbTime.
-      \end{equation}
+      \begin{align}
+        \factorThree{\urllcUser}{\embbUser}{\embbTime} & \geq 0,\quad \forall\embbUser, \forall\embbTime\\
+        \sum_{ \embbUser }{ \factorThree{\urllcUser}{\embbUser}{\embbTime} } & = 1,\quad \forall\embbTime.
+      \end{align}
     \item Thus
       \begin{equation}
         \sum_{ \embbUser }{ \urllcFourBug{\urllcUser}{\embbUser}{\embbTime}{\urllcTime} } = \demandThree{\urllcUser}{\embbTime}{\urllcTime},\quad \forall\embbTime, \forall\urllcTime
@@ -461,13 +463,41 @@
   \frametitle{Convex Loss Model (Continued)}
   \begin{itemize}
     \item \emph{If}
-      \begin{align}
-        \factorThree{\urllcUser}{\embbUser}{\embbTime} & = \embbThree{\embbUser}{\embbTime}{0}\\
-                                                       & = \frac{ \embbTwo{\embbUser}{\embbTime} }{ \urllcTimeN },\quad \forall\embbUser, \forall\embbTime
-      \end{align}
-    \item then
       \begin{equation}
-        \sum_{ \embbUser }{ \factorThree{\urllcUser}{\embbUser}{\embbTime} } = \sum_{ \embbUser }{ \frac{ \embbTwo{\embbUser}{\embbTime} }{ \urllcTimeN } } = \frac{ 1 }{ \urllcTimeN },\quad \forall\embbTime
+        \frac{ \embbTwo{\embbUser}{\embbTime} }{ \factorThree{\urllcUser}{\embbUser}{\embbTime} } \geq 1,\quad \forall\embbUser, \forall\embbTime
+      \end{equation}
+    \item then combining with $\urllcTimeN \demandThree{\urllcUser}{\embbTime}{\urllcTime} \leq 1, \forall\embbTime, \forall\urllcTime$,
+      \begin{equation}
+        \frac{ \embbTwo{\embbUser}{\embbTime} }{ \factorThree{\urllcUser}{\embbUser}{\embbTime} } \geq \urllcTimeN \demandThree{\urllcUser}{\embbTime}{\urllcTime},\quad \forall\embbUser, \forall\embbTime, \forall\urllcTime
+      \end{equation}
+    \item which materializes
+      \begin{equation}
+        \urllcFourBug{\urllcUser}{\embbUser}{\embbTime}{\urllcTime} \leq \embbThree{\embbUser}{\embbTime}{\urllcTime},\quad \forall\embbUser, \forall\embbTime, \forall\urllcTime
+      \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Convex Loss Model (Continued)}
+  \begin{itemize}
+    \item However, this implies that
+      \begin{equation}
+        \factorThree{\urllcUser}{\embbUser}{\embbTime} = \embbTwo{\embbUser}{\embbTime},\quad \forall\embbUser, \forall\embbTime
+      \end{equation}
+    \item Proof by contradiction: Assume $\exists\embbUser: \exists\embbTime: \factorThree{\urllcUser}{\embbUser}{\embbTime} > \embbTwo{\embbUser}{\embbTime}$, then at that $\embbTime$:
+      \begin{align}
+        \sum_{ \embbUser }{ \factorThree{\urllcUser}{\embbUser}{\embbTime} } & > \sum_{ \embbUser }{ \embbTwo{\embbUser}{\embbTime} }\\
+        1 & > 1
+      \end{align}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Convex Loss Model (Continued)}
+  \begin{itemize}
+    \item But such an assumption materializes
+      \begin{equation}
+        \sum_{ \embbUser }{ \factorThree{\urllcUser}{\embbUser}{\embbTime} } = \sum_{ \embbUser }{ \embbTwo{\embbUser}{\embbTime} } = 1,\quad \forall\embbTime
       \end{equation}
     \item They introduce the notation of $\left( 1 - \delta \right)$ factor to argue away some fundamental issues.
   \end{itemize}
