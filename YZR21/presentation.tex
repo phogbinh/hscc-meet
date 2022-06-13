@@ -324,7 +324,7 @@
       { \forall\timeSlot, \forall\subchannel }
     \addConstraint
       { \embbThree{\embbUser}{\timeSlot}{\subchannel} }
-      { \in \set{0, 1},\quad \label{pc:offline2} }
+      { \in \set{ 0, 1 },\quad \label{pc:offline2} }
       { \forall\embbUser, \forall\timeSlot, \forall\subchannel }
     \addConstraint
       { \sum_{ \urllcUser }{\urllcFive{\urllcUser}{\embbUser}{\timeSlot}{\timeMinislot}{\subchannel} } }
@@ -336,7 +336,7 @@
       { \forall\urllcUser, \forall\timeSlot, \forall\timeMinislot }
     \addConstraint
       { \urllcFive{\urllcUser}{\embbUser}{\timeSlot}{\timeMinislot}{\subchannel} }
-      { \in \set{0, 1},\quad \label{pc:offline5} }
+      { \in \set{ 0, 1 },\quad \label{pc:offline5} }
       { \forall\urllcUser, \forall\embbUser, \forall\timeSlot, \forall\timeMinislot, \forall\subchannel }
   \end{maxi!}
 \end{frame}
