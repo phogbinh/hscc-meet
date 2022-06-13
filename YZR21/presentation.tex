@@ -44,6 +44,10 @@
 
 %% problem
 \newcommand
+{\numerology}
+{\mu}
+
+\newcommand
 {\power}
 {p}
 
@@ -259,6 +263,33 @@
   \begin{figure}
     \includegraphics[width=0.7\textwidth]{system_model}
     \caption{System model}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numerology}
+  \begin{itemize}
+    \item $\numerology = 2$ for mmWave 28GHz is used ($\numerology \in \set{ 0, 1 }$ is for Sub-6GHz).
+    \item Subchannel bandwidth
+      \begin{align}
+        \subchannelBandwidth &= 2^{ \numerology } \cdot 15 &\unit{kHz}\\
+        &= 60 &\unit{kHz}\\
+        &= 6 \cdot 10^{ 4 } &\unit{Hz}
+      \end{align}
+    \item Time slot duration
+      \begin{align}
+        \timeSlotDuration &= \frac{ 1 }{ 2^{ \numerology } } &\unit{ms}\\
+        &= 0.25 &\unit{ms}\\
+        &= 2.5 \cdot 10^{ -4 } &\unit{s}
+      \end{align}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numerology (Continued)}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{numerology}
+    \caption{Numerology}
   \end{figure}
 \end{frame}
 
