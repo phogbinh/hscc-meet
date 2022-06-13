@@ -75,6 +75,10 @@
 {\const{\frequency}_{#1}}
 
 \newcommand
+{\subcarrierSpacing}
+{\zeta}
+
+\newcommand
 {\genericSubchannel}
 {sc}
 
@@ -270,11 +274,16 @@
   \frametitle{Numerology}
   \begin{itemize}
     \item $\numerology = 2$ for mmWave 28GHz is used ($\numerology \in \set{ 0, 1 }$ is for Sub-6GHz).
+    \item Subcarrier spacing
+      \begin{equation}
+        \subcarrierSpacing = 2^{ \numerology } \cdot 15 \unit{kHz}
+      \end{equation}
     \item Subchannel bandwidth
       \begin{align}
-        \subchannelBandwidth &= 2^{ \numerology } \cdot 15 &\unit{kHz}\\
-        &= 60 &\unit{kHz}\\
-        &= 6 \cdot 10^{ 4 } &\unit{Hz}
+        \subchannelBandwidth &= 12 \cdot \subcarrierSpacing &\unit{kHz}\\
+        &= 2^{ \numerology } \cdot 180 &\unit{kHz}\\
+        &= 720 &\unit{kHz}\\
+        &= 7.2 \cdot 10^{ 5 } &\unit{Hz}
       \end{align}
     \item Time slot duration
       \begin{align}
