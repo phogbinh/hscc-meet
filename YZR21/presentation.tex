@@ -37,6 +37,11 @@
 [1]
 {#1^{dB}}
 
+\newcommand
+{\unit}
+[1]
+{\left[ #1 \right]}
+
 %% problem
 \newcommand
 {\power}
@@ -340,9 +345,9 @@
   \begin{itemize}
     \item Shannon-Hartley theorem (bandwidth in \textcolor{red}{Hz}, time in \textcolor{red}{s})
       \begin{align*}
-        \pRateSlot{\embbUser}{\timeSlot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\embbDist{\embbUser}{\timeSlot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeSlotDuration \left[ \frac{ bits }{ slot } \right],\quad\\
+        \pRateSlot{\embbUser}{\timeSlot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\embbDist{\embbUser}{\timeSlot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeSlotDuration \unit{\frac{ bits }{ slot }},\quad\\
           &\forall\embbUser, \forall\timeSlot, \forall\subchannel\\
-        \pRateMinislot{\urllcUser}{\timeSlot}{\timeMinislot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\urllcDist{\urllcUser}{\timeSlot}{\timeMinislot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeMinislotDuration \left[ \frac{ bits }{ minislot } \right],\quad\\
+        \pRateMinislot{\urllcUser}{\timeSlot}{\timeMinislot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\urllcDist{\urllcUser}{\timeSlot}{\timeMinislot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeMinislotDuration \unit{\frac{ bits }{ minislot }},\quad\\
           &\forall\urllcUser, \forall\timeSlot, \forall\timeMinislot, \forall\subchannel
       \end{align*}
     \item where
