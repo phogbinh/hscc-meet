@@ -315,6 +315,44 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Channel Model -- Path Loss and Shadowing}
+  \begin{itemize}
+    \item Large-scale propagation path loss model (power in \textcolor{red}{W})
+      \begin{align}
+        \frac{ \powTx }{ \powRx{\frequency}{\distance} } &= \pathLoss{\frequency}{\distance}\\
+        \powRxDB{\frequency}{\distance} &= \dB{\powTx} - \pathLossDB{\frequency}{\distance}
+      \end{align}
+    \item Close-in (CI) free space reference distance model
+      \begin{equation}
+        \pathLossDB{\frequency}{\distance} = 20 \log_{ 10 }{ \frac{ 4 \pi \frequency }{ \lightSpeed } } + 10 \pathLossExponent \log_{10}{\distance} + \dB{\shadowingStddv}
+      \end{equation}
+    \item Path loss exponent and shadowing standard deviation for urban macro-cellular (UMa) line-of-sight (LoS) over frequency and 3D distance ranging from 2 to 73.5\textcolor{red}{GHz} and 58 to 930\textcolor{red}{m} are derived as \cite{SRRTGKRKPJ16}
+      \begin{align}
+        \pathLossExponent &= 2\\
+        \dB{\shadowingStddv} &= 4.6
+      \end{align}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Channel Model -- Co-channel Interference and Thermal Noise}
+  \begin{itemize}
+    \item Shannon-Hartley theorem (bandwidth in \textcolor{red}{Hz}, time in \textcolor{red}{s})
+      \begin{align*}
+        \pRateSlot{\embbUser}{\timeSlot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\embbDist{\embbUser}{\timeSlot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeSlotDuration \unit{\frac{ bits }{ slot }},\quad\\
+          &\forall\embbUser, \forall\timeSlot, \forall\subchannel\\
+        \pRateMinislot{\urllcUser}{\timeSlot}{\timeMinislot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\urllcDist{\urllcUser}{\timeSlot}{\timeMinislot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeMinislotDuration \unit{\frac{ bits }{ minislot }},\quad\\
+          &\forall\urllcUser, \forall\timeSlot, \forall\timeMinislot, \forall\subchannel
+      \end{align*}
+    \item where
+      \begin{equation}
+        \timeMinislotDuration = \frac{ \timeSlotDuration }{ \timeMinislotNum }
+      \end{equation}
+    \item Channel fading and inter-symbol interference (ISI) are not considered.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Offline URLLC Puncturing}
   \begin{itemize}
     \item The system maximizes eMBB traffic's total average rate and fairness \eqref{po:offline}.
@@ -362,44 +400,6 @@
     \rateMinislot{\urllcUser}{\timeSlot}{\timeMinislot} &= \sum_{ \embbUser, \subchannel }{ \urllcFive{\urllcUser}{\embbUser}{\timeSlot}{\timeMinislot}{\subchannel} \pRateMinislotMin{\urllcUser}{\timeSlot}{\timeMinislot} },\quad \forall\urllcUser, \forall\timeSlot, \forall\timeMinislot\\
     \pRateMinislotMin{\urllcUser}{\timeSlot}{\timeMinislot} &= \min_{ \subchannel }{ \left\{ \pRateMinislot{\urllcUser}{\timeSlot}{\timeMinislot}{\subchannel} \right\} },\quad \forall\urllcUser, \forall\timeSlot, \forall\timeMinislot
   \end{align}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Channel Model -- Path Loss and Shadowing}
-  \begin{itemize}
-    \item Large-scale propagation path loss model (power in \textcolor{red}{W})
-      \begin{align}
-        \frac{ \powTx }{ \powRx{\frequency}{\distance} } &= \pathLoss{\frequency}{\distance}\\
-        \powRxDB{\frequency}{\distance} &= \dB{\powTx} - \pathLossDB{\frequency}{\distance}
-      \end{align}
-    \item Close-in (CI) free space reference distance model
-      \begin{equation}
-        \pathLossDB{\frequency}{\distance} = 20 \log_{ 10 }{ \frac{ 4 \pi \frequency }{ \lightSpeed } } + 10 \pathLossExponent \log_{10}{\distance} + \dB{\shadowingStddv}
-      \end{equation}
-    \item Path loss exponent and shadowing standard deviation for urban macro-cellular (UMa) line-of-sight (LoS) over frequency and 3D distance ranging from 2 to 73.5\textcolor{red}{GHz} and 58 to 930\textcolor{red}{m} are derived as \cite{SRRTGKRKPJ16}
-      \begin{align}
-        \pathLossExponent &= 2\\
-        \dB{\shadowingStddv} &= 4.6
-      \end{align}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Channel Model -- Co-channel Interference and Thermal Noise}
-  \begin{itemize}
-    \item Shannon-Hartley theorem (bandwidth in \textcolor{red}{Hz}, time in \textcolor{red}{s})
-      \begin{align*}
-        \pRateSlot{\embbUser}{\timeSlot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\embbDist{\embbUser}{\timeSlot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeSlotDuration \unit{\frac{ bits }{ slot }},\quad\\
-          &\forall\embbUser, \forall\timeSlot, \forall\subchannel\\
-        \pRateMinislot{\urllcUser}{\timeSlot}{\timeMinislot}{\subchannel} &= \subchannelBandwidth \log_{ 2 }{ \left( 1 + \frac{ \powRxDB{\freq{\subchannel}}{\urllcDist{\urllcUser}{\timeSlot}{\timeMinislot}} }{ \dB{\cci{\subchannel}} + \dB{\subchannelThermalNoise} } \right) } \timeMinislotDuration \unit{\frac{ bits }{ minislot }},\quad\\
-          &\forall\urllcUser, \forall\timeSlot, \forall\timeMinislot, \forall\subchannel
-      \end{align*}
-    \item where
-      \begin{equation}
-        \timeMinislotDuration = \frac{ \timeSlotDuration }{ \timeMinislotNum }
-      \end{equation}
-    \item Channel fading and inter-symbol interference (ISI) are not considered.
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
