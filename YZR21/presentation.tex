@@ -273,11 +273,24 @@
 \begin{frame}
   \frametitle{Numerology}
   \begin{itemize}
-    \item $\numerology = 2$ for mmWave 28GHz is used ($\numerology \in \set{ 0, 1 }$ is for Sub-6GHz).
+    \item Base frequency
+      \begin{equation}
+        \freq{0} = 28 \unit{GHz}
+      \end{equation}
+    \item Numerology ($\numerology \in \set{ 0, 1 }$ is for Sub-6GHz).
+      \begin{equation}
+        \numerology = 2
+      \end{equation}
     \item Subcarrier spacing
       \begin{equation}
         \subcarrierSpacing = 2^{ \numerology } \cdot 15 \unit{kHz}
       \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numerology (Continued)}
+  \begin{itemize}
     \item Subchannel bandwidth
       \begin{align}
         \subchannelBandwidth &= 12 \cdot \subcarrierSpacing &\unit{kHz}\\
