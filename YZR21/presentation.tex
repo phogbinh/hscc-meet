@@ -87,6 +87,10 @@
 
 %% problem
 \newcommand
+{\amplitude}
+{10}
+
+\newcommand
 {\bsX}
 {\const{x}}
 
@@ -389,7 +393,7 @@
 
 \newcommand
 {\superposition}
-{\sum_{ \subcarrier = 0 }^{ 611 }{ 5 \cos( 2 \pi \subcarrierSpacing \subcarrier \time + \phaseShift{\encodeBit{\subcarrier}{\curSymbol}} ) }}
+{\sum_{ \subcarrier = 0 }^{ 611 }{ \amplitude \cos( 2 \pi \subcarrierSpacing \subcarrier \time + \phaseShift{\encodeBit{\subcarrier}{\curSymbol}} ) }}
 
 %% embb macro
 \newcommand
@@ -916,13 +920,13 @@
       \begin{equation}
         \pulse{\symbol}{\subcarrier}{\bit}{\time} =
         \begin{cases}
-          5 \cos( 2 \pi \frac{ 1 }{ \symbolDuration } \subcarrier \time + \phaseShift{\bit} ) &\symbolDuration \symbol \leq \time < \symbolDuration \left( \symbol + 1 \right)\\
+          \amplitude \cos( 2 \pi \frac{ 1 }{ \symbolDuration } \subcarrier \time + \phaseShift{\bit} ) &\symbolDuration \symbol \leq \time < \symbolDuration \left( \symbol + 1 \right)\\
           0 &\otherwise
         \end{cases} \unit{\voltage}
       \end{equation}
     \item where $\symbol \in \integerNonneg, \subcarrier \in \integerNonneg, \bit \in \set{ 0, 1 }, \time \in \real$
       \begin{figure}
-        \includegraphics[width=0.5\textwidth]{symbol_signal}
+        \includegraphics[width=0.5\textwidth]{pulse}
         \caption{Pulse $\pulse{0}{2}{0}{\time}$}
       \end{figure}
   \end{itemize}
@@ -930,6 +934,10 @@
 
 \begin{frame}
   \begin{itemize}
+    \item Do note that
+      \begin{equation}
+        \txPow = \amplitude^{ 2 } \unit{W}
+      \end{equation}
     \item Passband modulation -- frequency shifting
     \item The discussion followed considers $\curSymbol = 0, 1, \dots, 2799$
   \end{itemize}
@@ -942,13 +950,13 @@
         \subcarrierSignal{\subcarrier}{\curSymbol}{\time} &= \pulse{\curSymbol}{\subcarrier}{\encodeBit{\subcarrier}{\curSymbol}}{\time}\\
         &=
           \begin{cases}
-            5 \cos( 2 \pi \subcarrierFreq{\subcarrier} \time + \phaseShift{\encodeBit{\subcarrier}{\curSymbol}} ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right)\\
+            \amplitude \cos( 2 \pi \subcarrierFreq{\subcarrier} \time + \phaseShift{\encodeBit{\subcarrier}{\curSymbol}} ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right)\\
             0 &\otherwise
           \end{cases}\\
         &=
           \begin{cases}
-            5 \cos( 2 \pi \subcarrierFreq{\subcarrier} \time ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 0\\
-            5 \cos( 2 \pi \subcarrierFreq{\subcarrier} \time + \pi ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 1\\
+            \amplitude \cos( 2 \pi \subcarrierFreq{\subcarrier} \time ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 0\\
+            \amplitude \cos( 2 \pi \subcarrierFreq{\subcarrier} \time + \pi ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 1\\
             0 &\otherwise
           \end{cases}
       \end{align}
@@ -959,8 +967,8 @@
   \begin{equation}
     \subcarrierSignal{\subcarrier}{\curSymbol}{\time} =
       \begin{cases}
-        5 \cos( 2 \pi \subcarrierFreq{\subcarrier} \time ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 0\\
-        -5 \cos( 2 \pi \subcarrierFreq{\subcarrier} \time ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 1\\
+        \amplitude \cos( 2 \pi \subcarrierFreq{\subcarrier} \time ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 0\\
+        -\amplitude \cos( 2 \pi \subcarrierFreq{\subcarrier} \time ) &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right), \encodeBit{\subcarrier}{\curSymbol} = 1\\
         0 &\otherwise
       \end{cases} \unit{\voltage}, \forall\subcarrier \label{eq:cos}
   \end{equation}
@@ -973,7 +981,7 @@
         \channelSignal{\curSymbol}{\time} &= \sum_{ \subcarrier = 0 }^{ 611 }{ \subcarrierSignal{\subcarrier}{\curSymbol}{\time} }\\
         &=
           \begin{cases}
-            \sum_{ \subcarrier = 0 }^{ 611 }{ 5 \cos( 2 \pi \subcarrierFreq{\subcarrier} \time + \phaseShift{\encodeBit{\subcarrier}{\curSymbol}} ) } &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right)\\
+            \sum_{ \subcarrier = 0 }^{ 611 }{ \amplitude \cos( 2 \pi \subcarrierFreq{\subcarrier} \time + \phaseShift{\encodeBit{\subcarrier}{\curSymbol}} ) } &\symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right)\\
             0 &\otherwise
           \end{cases}\\
         &\unit{\voltage}
@@ -988,11 +996,11 @@
     \item Observation
       \begin{align*}
         &\channelSignal{\curSymbol}{\time}\\
-        = &5 \cos( 2 \pi 0^{\unit{kHz}} \time + \phaseShift{\encodeBit{0}{\curSymbol}} ) + \dots +\\
-        &5 \cos( 2 \pi 660^{\unit{kHz}} \time + \phaseShift{\encodeBit{11}{\curSymbol}} )\\
+        = &\amplitude \cos( 2 \pi 0^{\unit{kHz}} \time + \phaseShift{\encodeBit{0}{\curSymbol}} ) + \dots +\\
+        &\amplitude \cos( 2 \pi 660^{\unit{kHz}} \time + \phaseShift{\encodeBit{11}{\curSymbol}} )\\
         + &\dots\\
-        + &5 \cos( 2 \pi 36000^{\unit{kHz}} \time + \phaseShift{\encodeBit{600}{\curSymbol}} ) + \dots +\\
-        &5 \cos( 2 \pi 36660^{\unit{kHz}} \time + \phaseShift{\encodeBit{611}{\curSymbol}} )\\
+        + &\amplitude \cos( 2 \pi 36000^{\unit{kHz}} \time + \phaseShift{\encodeBit{600}{\curSymbol}} ) + \dots +\\
+        &\amplitude \cos( 2 \pi 36660^{\unit{kHz}} \time + \phaseShift{\encodeBit{611}{\curSymbol}} )\\
         = &\superposition \unit{\voltage},\quad \forall \symbolDuration \curSymbol \leq \time < \symbolDuration \left( \curSymbol + 1 \right)
       \end{align*}
   \end{itemize}
