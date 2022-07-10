@@ -679,9 +679,10 @@
   \frametitle{Parameters}
   \begin{itemize}
     \item Base frequency (use only when discuss channel model and do simulation, otherwise \textcolor{red}{assume $0$ for simplicity})
-      \begin{equation*}
-        \freq{0} = 28 \unit{GHz}
-      \end{equation*}
+      \begin{align}
+        \freq{0} &= 28 &\unit{GHz}\\
+        &= 28 \cdot 10^{9} &\unit{Hz}
+      \end{align}
     \item Number of time slots
       \begin{equation}
         \timeSlotNum = 200
@@ -1087,7 +1088,7 @@
   \begin{itemize}
     \item Subchannel frequency
       \begin{equation}
-        \freq{\subchannel} = \freq{0} + \subchannel \frac{ \subchannelBandwidth }{ 10^{ 9 } } \unit{GHz},\quad \forall\subchannel
+        \freq{\subchannel} = \freq{0} + \subchannel \subchannelBandwidth \unit{Hz},\quad \forall\subchannel
       \end{equation}
     \item 3D distance
       \begin{align*}
